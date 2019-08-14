@@ -10,20 +10,28 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class Event extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+  use Authenticatable, Authorizable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'id', 'event_code', 'title', 'description', 'date'
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'id', 'event_code', 'title', 'description', 'date'
+  ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+  /**
+   * Event relations 
+   * 
+   */
+  public function guests()
+  {
+    return $this->belongsToMany('App\Models\Guest', 'events_guests');
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\Models\User');
+  }
 }

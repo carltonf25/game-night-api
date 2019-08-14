@@ -30,4 +30,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   $router->put('events/{id}', ['uses' => 'EventController@update']);
 
   $router->delete('events/{id}', ['uses' => 'EventController@delete']);
+
+  $router->get('events/{id}/guests', ['uses' => 'EventController@getGuests']);
+
+  $router->post('events/{id}/guests', ['uses' => 'EventController@addGuests']);
 });

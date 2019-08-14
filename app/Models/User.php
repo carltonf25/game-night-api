@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Elqquent\Model;
 
@@ -12,12 +12,12 @@ class User extends Model implements Authenticatable
 {
   use AuthenticatableTrait;
 
-  protected $fillable = ['username', 'email', 'password', 'userImage'];
+  protected $fillable = ['username', 'email', 'password', 'avatar_image', 'plan_type'];
 
   protected $hidden = ['password'];
 
   public function event()
   {
-    return $this->hasMany('App\Models\Event', 'user_id');
+    return $this->hasMany('App\Models\Event');
   }
 }
