@@ -26,4 +26,10 @@ class UserController extends Controller
       return response()->json(['status' => 'fail'], 401);
     }
   }
+
+  public function showAllUsers()
+  {
+    $users = User::all();
+    return response()->json($users, 200);
+  }
 }

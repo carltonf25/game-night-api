@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\Event;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,9 +14,21 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-    ];
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+  return [
+    'username' => $faker->name,
+    'email' => $faker->unique()->email,
+    'password' => User::bcrypt('12345'),
+    'avatar_url' => $faker->imageUrl(100)
+  ];
+});
+
+$factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
+  return [
+    'title' => $faker->title,
+    'event_code' => $faker->unique()->numberBetween(1, 999999),
+    'description' => $faker->text(500),
+    'date' => $faker->date,
+    'header_image' => $faker->imageUrl(640)
+  ];
 });

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Elqquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -12,9 +12,19 @@ class User extends Model implements Authenticatable
 {
   use AuthenticatableTrait;
 
-  protected $fillable = ['username', 'email', 'password', 'avatar_image', 'plan_type'];
+  protected $fillable = ['username', 'email', 'password', 'avatar_url', 'plan_type'];
+
+  protected $attributes = [
+    'avatar_url' => 'https://i1.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1',
+    'plan_type' => 'free'
+  ];
 
   protected $hidden = ['password'];
+
+  public static function bcrypt($value, $options = [])
+  {
+    return app('hash')->make($value, $options);
+  }
 
   public function event()
   {

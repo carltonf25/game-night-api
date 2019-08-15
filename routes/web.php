@@ -15,9 +15,19 @@ $router->get('/', function () use ($router) {
   return $router->app->version();
 });
 
-$router->post('/login', ['uses' => 'UserController@authenticate']);
+$router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+
+  /**
+   * User endpoints
+   */
+
+  $router->group(['middleware' => 'jwt.auth'], function () use ($router) {
+
+    $router->get('users', ['uses' => 'UserController@showAllUsers']);
+  });
+
   /**
    * Event endpoints
    */
