@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Event;
 
 class UserController extends Controller
 {
@@ -31,5 +32,13 @@ class UserController extends Controller
   {
     $users = User::all();
     return response()->json($users, 200);
+  }
+
+  public function getEvents($id)
+  {
+    $user = User::find($id);
+    $events = $user->events();
+
+    return response()->json(['events' => $events, 'user' => $user], 200);
   }
 }

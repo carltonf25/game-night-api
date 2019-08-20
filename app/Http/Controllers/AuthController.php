@@ -68,10 +68,10 @@ class AuthController extends BaseController
     if (!$user) {
       return response()->json([
         'error' => 'Email does not exist.'
-      ], 400);
+      ]);
     }
 
-    // Verify the password and generate the token
+    // Verify the password and log user in  
     if (Hash::check($this->request->input('password'), $user->password)) {
       return response()->json([
         'user' => $user
@@ -81,6 +81,6 @@ class AuthController extends BaseController
     // Bad request response
     return response()->json([
       'error' => 'Email or password is wrong.'
-    ], 400);
+    ]);
   }
 }

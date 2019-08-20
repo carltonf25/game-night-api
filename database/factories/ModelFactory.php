@@ -25,10 +25,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
   return [
-    'title' => $faker->title,
+    'title' => $faker->text(15),
     'event_code' => $faker->unique()->numberBetween(1, 999999),
     'description' => $faker->text(500),
     'date' => $faker->date,
-    'header_image' => $faker->imageUrl(640)
+    'header_image' => $faker->imageUrl(640),
+    'user_id' => $faker->numberBetween(1, 10)
   ];
 });

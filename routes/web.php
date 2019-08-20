@@ -17,16 +17,18 @@ $router->get('/', function () use ($router) {
 
 $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 
+$router->post('signup', ['uses' => 'SignupController@create']);
+
 $router->group(['prefix' => 'api'], function () use ($router) {
 
   /**
    * User endpoints
    */
 
-  $router->group(['middleware' => 'jwt.auth'], function () use ($router) {
 
-    $router->get('users', ['uses' => 'UserController@showAllUsers']);
-  });
+  $router->get('users', ['uses' => 'UserController@showAllUsers']);
+
+  $router->get('users/{id}/events', ['uses' => 'UserController@getEvents']);
 
   /**
    * Event endpoints
