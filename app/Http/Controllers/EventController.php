@@ -49,18 +49,20 @@ class EventController extends Controller
     }
   }
 
-  public function getGuests($id)
+  public function getGuests($eventCode)
   {
-    $event = Event::find($id);
+    $event = Event::where('event_code', $eventCode)->first();
 
-    return response()->json($event->guests, 200);
+    return response()->json(['guests' => $event->guests], 200);
   }
 
-  public function addGuests($id, Request $request)
+  public function addGuests($eventCode, Request $request)
   {
+    $input = $request->all();
+
     $request = json_decode($request, true);
-    $event = Event::findOrFail($id);
-    $guestNames = $request->guests;
+    $event = Event::where('event_code', $eventCode)->first();
+    $guestNames = $input['guests'];
     $guests = [];
 
     foreach ($guestNames as $name) {
@@ -70,7 +72,7 @@ class EventController extends Controller
 
     try {
       $event->guests()->syncWithoutDetaching($guests);
-      return response()->json($event->guests, 200);
+      return response()->json(['guests' => $event->guests], 200);
     } catch (Exception $e) {
       return response()->json($e, 400);
     }

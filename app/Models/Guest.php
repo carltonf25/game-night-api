@@ -14,6 +14,10 @@ class Guest extends Model implements Authenticatable
 
   protected $fillable = ['id', 'name', 'user_id'];
 
+  protected $attributes = [
+    'user_id' => -1
+  ];
+
   public function events()
   {
     return $this->belongsToMany('App\Models\Event', 'events_guests');

@@ -43,7 +43,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
   $router->delete('events/{id}', ['uses' => 'EventController@delete']);
 
-  $router->get('events/{id}/guests', ['uses' => 'EventController@getGuests']);
+  $router->get('events/{eventCode}/guests', ['uses' => 'EventController@getGuests']);
 
-  $router->post('events/{id}/guests', ['uses' => 'EventController@addGuests']);
+  $router->post('events/{eventCode}/guests', ['uses' => 'EventController@addGuests']);
 });
