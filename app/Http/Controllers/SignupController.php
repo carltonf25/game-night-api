@@ -70,10 +70,14 @@ class SignupController extends BaseController
       ], 203);
     }
 
+
     // Email and password are valid amd email not in use. Create user. 
+
+    $hashedPassword = Hash::make($password);
+
     $user = User::create([
       'email' => $email,
-      'password' => $password,
+      'password' => $hashedPassword,
       'username' => $email
     ]);
 
