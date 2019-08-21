@@ -39,6 +39,6 @@ class UserController extends Controller
     $user = User::find($id);
     $events = $user->events();
 
-    return response()->json(['events' => $events, 'user' => $user], 200);
+    return response()->json(['events' => $events], 200);
   }
 }
