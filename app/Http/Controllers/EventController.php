@@ -33,7 +33,7 @@ class EventController extends Controller
         'error' => 'No event found with that code.'
       ]);
     }
-    return response()->json($event, 200);
+    return response()->json(['success' => 'Event found! Joining now..', 'event' => $event], 200);
   }
 
   public function create(Request $request)
