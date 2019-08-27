@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Guest;
+use App\Services\EventService;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->eventService = new EventService;
+  }
   public static function generateCode()
   {
     $characters = 3;
@@ -23,17 +28,11 @@ class EventController extends Controller
     return response()->json(Event::all());
   }
 
-  public function showOneEvent($code)
+  public function showOneEvent($eventCode)
   {
-    $event = Event::where('event_code', $code)->first();
-    if ($code == '') {
-      return response()->json(['error' => 'Please enter an event code']);
-    } else if (!$event) {
-      return response()->json([
-        'error' => 'No event found with that code.'
-      ]);
-    }
-    return response()->json(['success' => 'Event found! Joining now..', 'event' => $event], 200);
+    $response = $this->eventService->getOneEvent($eventCode);
+
+    return response()->json($response);
   }
 
   public function create(Request $request)
