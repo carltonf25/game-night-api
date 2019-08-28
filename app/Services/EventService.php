@@ -24,4 +24,27 @@ class EventService
 
     return $response;
   }
+
+  public static function generateCode()
+  {
+    $characters = 3;
+    $code = bin2hex(random_bytes($characters));
+
+    return $code;
+  }
+
+  public static function make($request)
+  {
+    $response = [];
+    try {
+      $event = new Event($request->all());
+      $code = $this->generateCode();
+      $event->event_code = $code;
+      $event->save();
+      $response = [$event, 201];
+    } catch (Exception $e) {
+      $response = [$e, 400];
+    }
+    return $response;
+  }
 }

@@ -37,15 +37,8 @@ class EventController extends Controller
 
   public function create(Request $request)
   {
-    try {
-      $event = new Event($request->all());
-      $code = $this->generateCode();
-      $event->event_code = $code;
-      $event->save();
-      return response()->json($event, 201);
-    } catch (Exception $e) {
-      return response()->json($e, 400);
-    }
+    $response = $this->eventService->make($request);
+    return response()->json($response);
   }
 
   public function getGuests($eventCode)
@@ -62,6 +55,7 @@ class EventController extends Controller
     $request = json_decode($request, true);
     $event = Event::where('event_code', $eventCode)->first();
     $guestNames = $input['guests'];
+
     $guests = [];
 
     foreach ($guestNames as $name) {
