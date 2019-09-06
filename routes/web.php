@@ -24,8 +24,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   /**
    * User endpoints
    */
-
-
   $router->get('users', ['uses' => 'UserController@showAllUsers']);
 
   $router->get('users/{id}/events', ['uses' => 'UserController@getEvents']);

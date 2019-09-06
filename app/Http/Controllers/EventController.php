@@ -15,13 +15,6 @@ class EventController extends Controller
   {
     $this->eventService = new EventService;
   }
-  public static function generateCode()
-  {
-    $characters = 3;
-    $code = bin2hex(random_bytes($characters));
-
-    return $code;
-  }
 
   public function showAllEvents()
   {
@@ -50,22 +43,26 @@ class EventController extends Controller
 
   public function addGuests($eventCode, Request $request)
   {
-    $input = $request->all();
-
-    $request = json_decode($request, true);
+    $guests = $request->input('guests');
     $event = Event::where('event_code', $eventCode)->first();
-    $guestNames = $input['guests'];
 
-    $guests = [];
+    $guestsArray = [];
+    $errors = [];
 
-    foreach ($guestNames as $name) {
-      $guest = Guest::firstOrCreate(['name' => $name]);
-      $guests[] = $guest->id;
+    foreach ($guests as $guest) {
+      $guest = Guest::firstOrCreate(['name' => $guest['name']]);
+      $guestsArray[] = $guest;
+    }
+
+    $guestIds = [];
+
+    foreach ($guestsArray as $guest) {
+      $guestIds[] = $guest['id'];
     }
 
     try {
-      $event->guests()->syncWithoutDetaching($guests);
-      return response()->json(['guests' => $event->guests], 200);
+      $event->guests()->syncWithoutDetaching($guestIds);
+      return response()->json(['guests' => $event->guests, 'added' => true], 200);
     } catch (Exception $e) {
       return response()->json($e, 400);
     }

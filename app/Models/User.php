@@ -16,13 +16,13 @@ class User extends Model implements Authenticatable
 
   protected $attributes = [
     'avatar_url' => 'https://i1.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1',
-    'plan_type' => 'free',
+    'plan_type' => 'free'
   ];
 
   protected $hidden = ['password'];
 
-  public static function bcrypt($value, $options = [])
+  public function events()
   {
-    return app('hash')->make($value, $options);
+    return $this->hasMany('App\Models\Event', 'user_id');
   }
 }

@@ -36,9 +36,13 @@ class UserController extends Controller
 
   public function getEvents($id)
   {
-    $user = User::find($id);
-    $events = $user->events();
+    $user = User::findOrFail($id);
+    $events = $user->events;
 
-    return response()->json(['events' => $events], 200);
+    if ($events) {
+      return response()->json(['events' => $events], 200);
+    } else {
+      return response()->json(['message' => 'no events found for this user']);
+    }
   }
 }

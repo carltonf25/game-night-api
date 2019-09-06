@@ -19,7 +19,7 @@ class EventService
       // dynamically add guests to $event object
       $guests = $event->guests;
       $event->guests = $guests;
-      $response = ['success' => 'Event found! Joining now..', 'event' => $event];
+      $response = ['success' => 'Event found! Joining now..', 'event' => $event, 'created' => true];
     }
 
     return $response;
@@ -33,15 +33,22 @@ class EventService
     return $code;
   }
 
-  public static function make($request)
+  public function make($request)
   {
     $response = [];
+    $event = new Event($request->all());
+
     try {
-      $event = new Event($request->all());
-      $code = $this->generateCode();
+      $code = Self::generateCode();
+
+      /**
+       * manually add event_code (expected), but not sure why I have to manually specify user_id & header_image..
+       */
       $event->event_code = $code;
+      $event->user_id = $request->input('user_id');
+      $event->header_image = $request->input('header_image');
       $event->save();
-      $response = [$event, 201];
+      $response = [$event, 'created' => true, 'code' => 201];
     } catch (Exception $e) {
       $response = [$e, 400];
     }

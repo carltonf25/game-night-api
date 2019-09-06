@@ -82,7 +82,8 @@ class SignupController extends BaseController
     ]);
 
     return response()->json([
-      'user' => $user
+      'user' => $user,
+      'created' => true
     ], 200);
   }
 }
