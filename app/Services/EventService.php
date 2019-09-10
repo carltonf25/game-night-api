@@ -48,7 +48,7 @@ class EventService
       $event->user_id = $request->input('user_id');
       $event->header_image = $request->input('header_image');
       $event->save();
-      $response = [$event, 'created' => true, 'code' => 201];
+      $response = [$event, 'created' => true, 'code' => 200];
     } catch (Exception $e) {
       $response = [$e, 400];
     }

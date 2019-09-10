@@ -18,8 +18,15 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
   return [
     'username' => $faker->name,
     'email' => $faker->unique()->email,
-    'password' => User::bcrypt('12345'),
-    'avatar_url' => $faker->imageUrl(100)
+    'password' => user::bcrypt('12345'),
+    'avatar_url' => $faker->imageurl(100)
+  ];
+});
+
+$factory->define(App\Models\Guest::class, function (Faker\Generator $faker) {
+  return [
+    'name' => $faker->name,
+    'user_id' => -1
   ];
 });
 
@@ -28,8 +35,8 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
     'title' => $faker->text(15),
     'event_code' => $faker->unique()->numberBetween(1, 999999),
     'description' => $faker->text(500),
-    'date' => $faker->date,
+    'date' => '2019-03-18 00:00:00',
     'header_image' => $faker->imageUrl(640),
-    'user_id' => $faker->numberBetween(1, 10)
+    'user_id' => 1
   ];
 });
