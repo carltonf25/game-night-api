@@ -15,7 +15,7 @@ class Guest extends Model implements Authenticatable
   protected $fillable = ['id', 'name', 'user_id'];
 
   protected $attributes = [
-    'user_id' => -1
+    'user_id' => -1,
   ];
 
   public function events()

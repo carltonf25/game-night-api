@@ -17,7 +17,6 @@ class CreateEventsGuestsTable extends Migration
       $table->bigIncrements('id');
       $table->integer('event_id');
       $table->integer('guest_id');
-      $table->string('bringing');
       $table->timestamps();
     });
   }
