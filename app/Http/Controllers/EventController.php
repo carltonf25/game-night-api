@@ -62,7 +62,14 @@ class EventController extends Controller
 
     try {
       $event->guests()->syncWithoutDetaching($guestIds);
-      return response()->json(['guests' => $event->guests, 'added' => true], 200);
+      return response()->json(
+        [
+          'guests' => $event->guests,
+          'flash' => 'Successfully RSVP-d! See you there 🤙',
+          'added' => true
+        ],
+        200
+      );
     } catch (Exception $e) {
       return response()->json($e, 400);
     }
