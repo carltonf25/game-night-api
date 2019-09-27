@@ -75,12 +75,12 @@ class EventController extends Controller
     }
   }
 
-  public function update($id, Request $request)
+  public function update($eventCode, Request $request)
   {
-    $event = Event::findOrFail($id);
+    $event = Event::where('event_code', $eventCode)->first();
     $event->update($request->all());
 
-    return response()->json($event, 200);
+    return response()->json(["event" => $event, "updated" => true], 200);
   }
 
   public function delete($id)
