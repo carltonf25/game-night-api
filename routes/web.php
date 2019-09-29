@@ -19,6 +19,11 @@ $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 
 $router->post('signup', ['uses' => 'SignupController@create']);
 
+// public unauthenticated event routes 
+$router->get('api/events/{code}', ['uses' => 'EventController@showOneEvent']);
+$router->get('api/events/{eventCode}/guests', ['uses' => 'EventController@getGuests']);
+$router->post('api/events/{eventCode}/guests', ['uses' => 'EventController@addGuests']);
+
 $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
   /**
    * User endpoints
@@ -32,15 +37,9 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
    */
   $router->get('events', ['uses' => 'EventController@showAllEvents']);
 
-  $router->get('events/{code}', ['uses' => 'EventController@showOneEvent']);
-
   $router->post('events', ['uses' => 'EventController@create']);
 
   $router->put('events/{eventCode}', ['uses' => 'EventController@update']);
 
   $router->delete('events/{id}', ['uses' => 'EventController@delete']);
-
-  $router->get('events/{eventCode}/guests', ['uses' => 'EventController@getGuests']);
-
-  $router->post('events/{eventCode}/guests', ['uses' => 'EventController@addGuests']);
 });
