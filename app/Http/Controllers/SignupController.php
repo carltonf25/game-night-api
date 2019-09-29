@@ -69,8 +69,6 @@ class SignupController extends BaseController
         'error' => 'Password cannot exceed 20 characters.'
       ], 203);
     }
-
-
     // Email and password are valid amd email not in use. Create user. 
 
     $hashedPassword = Hash::make($password);
@@ -78,7 +76,8 @@ class SignupController extends BaseController
     $user = User::create([
       'email' => $email,
       'password' => $hashedPassword,
-      'username' => $email
+      'username' => $email,
+      'api_token' => Str::random(60),
     ]);
 
     return response()->json([

@@ -19,8 +19,7 @@ $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 
 $router->post('signup', ['uses' => 'SignupController@create']);
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-
+$router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
   /**
    * User endpoints
    */
