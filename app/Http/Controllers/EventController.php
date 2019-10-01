@@ -78,14 +78,15 @@ class EventController extends Controller
   public function update($eventCode, Request $request)
   {
     $event = Event::where('event_code', $eventCode)->first();
-    $event->update([
-      'title' => $request->title,
-      'header_image' => $request->header_image,
-      'description' => $request->description,
-      'date' => $request->date,
-      'location' => $request->location,
-      'event_code' => $request->event_code
-    ]);
+
+    $event->header_image = $request->header_image;
+    $event->title = $request->title;
+    $event->description = $request->description;
+    $event->date = $request->date;
+    $event->location = $request->location;
+    $event->event_code = $request->event_code;
+
+    $event->save();
 
     return response()->json(["event" => $event, "updated" => true], 200);
   }
