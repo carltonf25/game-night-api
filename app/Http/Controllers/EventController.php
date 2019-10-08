@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\User;
+use App\Models\Need;
 use App\Models\Guest;
 use App\Services\EventService;
 use Illuminate\Http\Request;
