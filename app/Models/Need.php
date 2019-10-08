@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Laravel\Lumen\Auth\Authorizable;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Need extends Model implements AuthenticatableContract, AuthorizableContract

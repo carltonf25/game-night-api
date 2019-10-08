@@ -90,7 +90,7 @@ class EventController extends Controller
         'added' => true
       ], 200);
     } catch (Exception $e) {
-      return response()->json($e, 400);
+      return response()->json(['error' => $e], 400);
     }
   }
 
