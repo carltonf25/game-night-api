@@ -41,5 +41,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
 
   $router->put('events/{eventCode}', ['uses' => 'EventController@update']);
 
+  $router->post('events/{eventCode}/needs', ['uses' => 'EventController@addNeed']);
+
   $router->delete('events/{id}', ['uses' => 'EventController@delete']);
 });
