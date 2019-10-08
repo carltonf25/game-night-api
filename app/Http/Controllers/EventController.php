@@ -77,7 +77,7 @@ class EventController extends Controller
 
   public function addNeed($eventCode, Request $request)
   {
-    $need = Need::firstOrCreate(['title' => $request->input(title)]);
+    $need = Need::firstOrCreate(['title' => $request->input('title')]);
     $event = Event::where('event_code', $eventCode)->first();
 
     $needId = $need->id;
