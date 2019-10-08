@@ -16,9 +16,11 @@ class EventService
     } else if (!$event) {
       $response = ['error' => 'No event found with that code.'];
     } else {
-      // dynamically add guests to $event object
+      // dynamically add guests and needed items to $event object
       $guests = $event->guests;
+      $neededItems = $event->needs;
       $event->guests = $guests;
+      $event->neededItems = $neededItems;
       $response = ['success' => 'Event found! Joining now..', 'event' => $event, 'created' => true];
     }
 
