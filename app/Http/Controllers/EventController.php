@@ -83,7 +83,7 @@ class EventController extends Controller
     $needId = $need->id;
 
     try {
-      $event->guests()->syncWithoutDetaching($needId);
+      $event->needs()->syncWithoutDetaching($needId);
       return response()->json([
         'needs' => $event->needs,
         'flash' => 'Successfully added item.',

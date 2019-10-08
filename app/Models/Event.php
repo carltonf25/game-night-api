@@ -31,6 +31,11 @@ class Event extends Model implements AuthenticatableContract, AuthorizableContra
     return $this->belongsToMany('App\Models\Guest', 'events_guests');
   }
 
+  public function needs()
+  {
+    return $this->hasMany('App\Models\Need');
+  }
+
   public function user()
   {
     return $this->belongsTo('App\Models\User');
