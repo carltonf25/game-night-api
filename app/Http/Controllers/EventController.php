@@ -75,25 +75,6 @@ class EventController extends Controller
     }
   }
 
-  public function addNeed($eventCode, Request $request)
-  {
-    $need = Need::firstOrCreate(['title' => $request->input('title')]);
-    $event = Event::where('event_code', $eventCode)->first();
-
-    $needId = $need->id;
-
-    try {
-      $event->needs()->syncWithoutDetaching($needId);
-      return response()->json([
-        'needs' => $event->needs,
-        'flash' => 'Successfully added item.',
-        'added' => true
-      ], 200);
-    } catch (Exception $e) {
-      return response()->json(['error' => $e], 400);
-    }
-  }
-
   public function update($eventCode, Request $request)
   {
     $event = Event::where('event_code', $eventCode)->first();

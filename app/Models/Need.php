@@ -19,7 +19,7 @@ class Need extends Model implements AuthenticatableContract, AuthorizableContrac
    * @var array
    */
   protected $fillable = [
-    'id', 'title' 
+    'id', 'title', 'event_id', 'guest_id'
   ];
 
   /**
@@ -28,11 +28,11 @@ class Need extends Model implements AuthenticatableContract, AuthorizableContrac
    */
   public function events()
   {
-    return $this->belongsToMany('App\Models\Event');
+    return $this->belongsTo('App\Models\Event');
   }
 
   public function guests()
   {
-    return $this->belongsToMany('App\Models\Guest');
+    return $this->belongsTo('App\Models\Guest');
   }
 }

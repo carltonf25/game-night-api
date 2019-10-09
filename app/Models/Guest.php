@@ -20,6 +20,6 @@ class Guest extends Model implements Authenticatable
 
   public function events()
   {
-    return $this->belongsToMany('App\Models\Event', 'events_guests');
+    return $this->hasMany('App\Models\Event', 'events_guests');
   }
 }
