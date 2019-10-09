@@ -23,25 +23,23 @@ $router->post('signup', ['uses' => 'SignupController@create']);
 $router->get('api/events/{code}', ['uses' => 'EventController@showOneEvent']);
 $router->get('api/events/{eventCode}/guests', ['uses' => 'EventController@getGuests']);
 $router->post('api/events/{eventCode}/guests', ['uses' => 'EventController@addGuests']);
+$router->post('api/events/{eventCode}/needs', ['uses' => 'EventController@addNeed']);
+$router->put('api/events/{eventCode}/needs/{id}', ['uses' => 'EventController@updateNeed']);
+$router->get('api/events/{eventCode}/needs', ['uses' => 'EventController@getNeeds']);
+$router->delete('api/events/{eventCode}/needs/{id}', ['uses' => 'EventController@removeNeed']);
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
   /**
    * User endpoints
    */
   $router->get('users', ['uses' => 'UserController@showAllUsers']);
-
   $router->get('users/{id}/events', ['uses' => 'UserController@getEvents']);
 
   /**
    * Event endpoints
    */
   $router->get('events', ['uses' => 'EventController@showAllEvents']);
-
   $router->post('events', ['uses' => 'EventController@create']);
-
   $router->put('events/{eventCode}', ['uses' => 'EventController@update']);
-
-  $router->post('events/{eventCode}/needs', ['uses' => 'EventController@addNeed']);
-
   $router->delete('events/{id}', ['uses' => 'EventController@delete']);
 });

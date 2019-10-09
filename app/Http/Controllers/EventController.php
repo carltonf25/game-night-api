@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\Need;
 use App\Models\Guest;
+use App\Models\Need;
 use App\Services\EventService;
 use Illuminate\Http\Request;
 
@@ -32,6 +32,48 @@ class EventController extends Controller
   {
     $response = $this->eventService->make($request);
     return response()->json($response);
+  }
+
+  public function getNeeds($eventCode)
+  {
+    $event = Event::where('event_code', $eventCode);
+    if ($event) {
+      return response()->json($event->needs);
+    } else {
+      return response()->json(['error' => 'Event not found']);
+    }
+  }
+
+  public function addNeed($eventCode, Request $request)
+  {
+    $event = Event::where('event_code', $eventCode);
+    if ($event) {
+      $need = new Need([
+        'title' => $request->title,
+        'event_id' => $event->id,
+        'guest_id' => -1
+      ]);
+      $need->save();
+
+      return response()->json([
+        'need' => $need,
+        'added' => true,
+        'flash' => 'Successfully added!'
+      ]);
+    } else {
+      return response()->json(['error' => 'Event not found'], 400);
+    }
+  }
+
+  public function removeNeed($id)
+  {
+    $need = Need::find($id);
+    if ($need) {
+      $need->delete();
+      return response()->json(['flash' => 'Successfully deleted!']);
+    } else {
+      return response()->json(['error' => 'Need not found']);
+    }
   }
 
   public function getGuests($eventCode)

@@ -22,4 +22,9 @@ class Guest extends Model implements Authenticatable
   {
     return $this->hasMany('App\Models\Event', 'events_guests');
   }
+
+  public function needs()
+  {
+    return $this->hasMany('App\Models\Need');
+  }
 }
