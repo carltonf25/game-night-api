@@ -23,8 +23,8 @@ class Guest extends Model implements Authenticatable
     return $this->hasMany('App\Models\Event', 'events_guests');
   }
 
-  public function needs()
+  public function comments()
   {
-    return $this->hasMany('App\Models\Need');
+    return $this->hasMany('App\Models\Comment');
   }
 }
