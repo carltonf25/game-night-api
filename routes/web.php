@@ -16,7 +16,6 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
-
 $router->post('signup', ['uses' => 'SignupController@create']);
 
 // public unauthenticated event routes 

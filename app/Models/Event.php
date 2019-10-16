@@ -19,7 +19,7 @@ class Event extends Model implements AuthenticatableContract, AuthorizableContra
    * @var array
    */
   protected $fillable = [
-    'id', 'event_code', 'title', 'description', 'date', 'location', 'header_image, user_id'
+    'id', 'event_code', 'title', 'description', 'date', 'time', 'location', 'header_image, user_id'
   ];
 
   /**
