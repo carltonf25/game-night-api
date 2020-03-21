@@ -37,6 +37,7 @@ class AuthController extends BaseController
    * @param \App\User $user
    * @return string
    */
+
   protected function jwt(User $user)
   {
     $payload = [
@@ -46,7 +47,7 @@ class AuthController extends BaseController
       'exp' => time() + 60 * 60 // Expiration time
     ];
 
-    return JWT::encode($payload, env('JWT_SECTET'));
+    return JWT::encode($payload, env('JWT_SECRET'));
   }
 
   /**
@@ -67,7 +68,7 @@ class AuthController extends BaseController
 
     if (!$user) {
       return response()->json([
-        'error' => 'Email does not exist.'
+        'error' => 'No user found with this email address.'
       ]);
     }
 
@@ -80,7 +81,7 @@ class AuthController extends BaseController
 
     // Bad request response
     return response()->json([
-      'error' => 'Email or password is wrong.'
+      'error' => 'Email or password is incorrect.'
     ]);
   }
 }
