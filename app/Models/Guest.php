@@ -25,6 +25,6 @@ class Guest extends Model implements Authenticatable
 
   public function comments()
   {
-    return $this->hasMany('App\Models\Comment');
+    return $this->hasMany('App\Models\Comment', 'guest_id', 'id');
   }
 }

@@ -33,7 +33,7 @@ class Event extends Model implements AuthenticatableContract, AuthorizableContra
 
   public function comments()
   {
-    return $this->hasMany('App\Models\Comment');
+    return $this->belongsToMany('App\Models\Comment', 'comments', 'event_id', 'id');
   }
 
   public function user()

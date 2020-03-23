@@ -43,3 +43,5 @@ $router->get('api/events', ['uses' => 'EventController@showAllEvents']);
 $router->post('api/events', ['uses' => 'EventController@create']);
 $router->put('api/events/{eventCode}', ['uses' => 'EventController@update']);
 $router->delete('api/events/{id}', ['uses' => 'EventController@delete']);
+$router->get('api/events/{eventCode}/comments', ['uses' => 'EventController@getComments']);
+$router->post('api/events/{eventCode}/comments', ['uses' => 'EventController@addComment']);

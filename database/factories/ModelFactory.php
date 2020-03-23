@@ -37,7 +37,8 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
     'description' => $faker->text(500),
     'date' => $faker->date(),
     'header_image' => $faker->imageUrl(640),
-		'user_id' => 1,
-		'time' => $faker->dateTime()
+    'user_id' => 1,
+    'time' => '2019-08-16 00:08:11',
+    'location' => "Greg's place"
   ];
 });
