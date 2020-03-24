@@ -44,7 +44,7 @@ class EventController extends Controller
     $response = [];
     try {
       $event = Event::where('event_code', $eventCode)->first();
-      $response = ['event' => $event];
+      $response = ['event' => $event, 'success' => 'Event found! Navigating to event page...'];
     } catch (Exception $e) {
       $response = ['error' => $e];
     }
