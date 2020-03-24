@@ -29,17 +29,10 @@ class SignupController extends BaseController
   }
 
   /**
-   * Create a new token.
-   * 
-   * @param \App\User $user
-   * @return string
-   */
-
-  /**
    * Authenticate a user and return the user if the provided credentials are correct.
    * 
    * @param \App\User $user
-   * @return mixed
+   * @return JSON array
    */
   public function create(User $user)
   {
@@ -51,7 +44,7 @@ class SignupController extends BaseController
     $email = $this->request->input('email');
     $password = $this->request->input('password');
 
-    // Find the user by email
+    // See if an existing user already has this email address
     $user = User::where('email', $email)->first();
 
     if ($user) {
@@ -60,7 +53,7 @@ class SignupController extends BaseController
       ], 203);
     }
 
-    // Verify the password
+    // Validate password
     if (strlen($password) < 6) {
       return response()->json([
         'error' => 'Password must be at least 6 characters long'
@@ -70,10 +63,12 @@ class SignupController extends BaseController
         'error' => 'Password cannot exceed 20 characters.'
       ], 203);
     }
+
     // Email and password are valid amd email not in use. Create user. 
 
     $hashedPassword = Hash::make($password);
 
+		try {
     $user = User::create([
       'email' => $email,
       'password' => $hashedPassword,
@@ -85,5 +80,9 @@ class SignupController extends BaseController
       'user' => $user,
       'created' => true
     ], 200);
+		} catch (Exception $e) {
+			return response()->json(['error' => 'There was a problem creating the account:' . $e ]);
+		}
   }
+
 }

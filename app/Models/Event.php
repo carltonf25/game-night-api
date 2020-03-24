@@ -19,7 +19,7 @@ class Event extends Model implements AuthenticatableContract, AuthorizableContra
    * @var array
    */
   protected $fillable = [
-    'id', 'event_code', 'title', 'description', 'date', 'time', 'location', 'header_image, user_id'
+    'id', 'event_code', 'title', 'description', 'date', 'time', 'location', 'header_image', 'user_id'
   ];
 
   /**
@@ -33,7 +33,7 @@ class Event extends Model implements AuthenticatableContract, AuthorizableContra
 
   public function comments()
   {
-    return $this->hasMany('App\Models\Comment');
+    return $this->belongsToMany('App\Models\Comment', 'comments', 'event_id', 'id');
   }
 
   public function user()

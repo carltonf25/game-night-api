@@ -26,10 +26,6 @@ class Comment extends Model implements AuthenticatableContract, AuthorizableCont
    * Comment relations 
    * 
    */
-  public function events()
-  {
-    return $this->belongsTo('App\Models\Event');
-  }
 
   public function guests()
   {

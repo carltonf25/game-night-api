@@ -14,12 +14,14 @@ class User extends Model implements Authenticatable
 
   protected $fillable = ['username', 'email', 'password', 'api_token', 'avatar_url', 'plan_type'];
 
+	// set default attribute values
   protected $attributes = [
     'avatar_url' => 'https://i1.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg?ssl=1',
     'plan_type' => 'free'
   ];
 
-  protected $hidden = ['password'];
+	// hide password & api_token from JSON response when retrieving user
+  protected $hidden = ['password', 'api_token'];
 
   public function events()
   {
