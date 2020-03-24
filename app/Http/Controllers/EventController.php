@@ -151,9 +151,12 @@ class EventController extends Controller
 
     try {
       $event->guests()->syncWithoutDetaching($guestIds);
+			$index = count($event->guests) - 1;
+			$lastGuest = $event->guests[$index];
+
       return response()->json(
         [
-          'guests' => $event->guests,
+          'guest' => $lastGuest,
           'flash' => 'Successfully RSVP-d! See you there 🤙',
           'added' => true
         ],
