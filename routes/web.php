@@ -6,15 +6,9 @@
 |--------------------------------------------------------------------------
 */
 
-// Signup & Login 
+/* Signup & Login */
 $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 $router->post('signup', ['uses' => 'SignupController@create']);
-
-/*
-|--------------------------------------------------------------------------
-| public unauthenticated event routes 
-|--------------------------------------------------------------------------
-*/
 
 $router->get('api/events/{code}', ['uses' => 'EventController@showOneEvent']);
 $router->get('api/events/{eventCode}/guests', ['uses' => 'EventController@getGuests']);
@@ -23,13 +17,6 @@ $router->post('api/events/{eventCode}/needs', ['uses' => 'EventController@addNee
 $router->put('api/events/{eventCode}/needs/{id}', ['uses' => 'EventController@updateNeed']);
 $router->get('api/events/{eventCode}/needs', ['uses' => 'EventController@getNeeds']);
 $router->delete('api/events/{eventCode}/needs/{id}', ['uses' => 'EventController@removeNeed']);
-
-/*
-|--------------------------------------------------------------------------
-| Authenticated routes
-|--------------------------------------------------------------------------
-*/
-
 
 /* User endpoints */
 $router->get('api/users', ['uses' => 'UserController@showAllUsers']);
